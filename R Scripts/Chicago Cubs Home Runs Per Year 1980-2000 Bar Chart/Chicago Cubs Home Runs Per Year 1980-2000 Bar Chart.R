@@ -44,11 +44,9 @@ df <- df[order(df$yearID),]
 # plot
 gg <- ggplot(df, aes(x=factor(yearID), y=HR)) + 
   geom_bar( stat="identity", width=.5, fill="tomato3") + 
-  geom_text(aes(label = HR), vjust=-.)+
-  labs(title="Ordered Bar Chart", 
-       subtitle="Make Vs Avg. Mileage", 
-       caption="source: mpg") + 
-  theme(axis.text.x = element_text(angle=65, vjust=0.6)) +
-  coord_flip()
+  labs(title="Home Runs Per Year", 
+       x="Year",
+       y="Home Runs") + 
+  theme(axis.text.x = element_text(angle=65, vjust=0.6))
 plot(gg)
 

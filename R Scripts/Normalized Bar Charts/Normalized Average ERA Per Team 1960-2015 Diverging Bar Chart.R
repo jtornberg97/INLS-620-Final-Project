@@ -41,7 +41,7 @@ df$era_type <- ifelse(df$era_z < 0, "Below", "Above")  # above / below avg flag
 df <- df[order(df$era_z), ]  # sort
 df$`TeamName` <- factor(df$`TeamName`, levels = df$`TeamName`)  # convert to factor to retain sorted order in plot.
 
-ggplot(df, aes(x=`TeamName`, y=era_z, label=era_z)) + 
+gg <- ggplot(df, aes(x=`TeamName`, y=era_z, label=era_z)) + 
   geom_point(stat='identity', aes(col=era_type), size=6)  +
   scale_color_manual(name="Average ERA", 
                      labels = c("Above Average", "Below Average"), 
@@ -50,4 +50,4 @@ ggplot(df, aes(x=`TeamName`, y=era_z, label=era_z)) +
   labs(subtitle="Normalized ERA For MLB Teams 1960-2015", 
        title= "Diverging Bars", x="Team Name", y='Z-Score') + 
   coord_flip()
-
+plot(gg)
