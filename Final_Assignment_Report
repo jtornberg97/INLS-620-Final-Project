@@ -1,1 +1,61 @@
+For my final assignment, I chose to visualize some of my RDF triples using the SPARQL and ggplot2 packages in R.
+I chose to make 5 visualizations that I felt would best represent the the work that I had done to reconcile the dataset.
+Most of the data manipulation was carried out in the R Scripts that I have stored in this github repository:
+https://github.com/jtornberg97/INLS-620-Final-Project
 
+The SPARQL queries that I ran to retrieve the data for each visualization are listed below:
+
+Normalized Average Home Runs Allowed Per Team 1960-2015
+
+    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    PREFIX MLB: <http://localhost:3333/>
+    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+    SELECT ?TeamSeason ?TeamName ?HRA ?yearID
+    WHERE {
+      ?TeamSeason MLB:HomeRunsAllowed ?HRA .
+      ?TeamSeason MLB:TeamName ?TeamName .
+      ?TeamSeason MLB:Year ?yearID .
+        FILTER (?yearID > 1960).
+    }
+ 
+Normalized Earned Run Average Per Team 1960-2015
+
+  PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+  PREFIX MLB: <http://localhost:3333/>
+  PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+  SELECT ?TeamSeason ?TeamName ?ERA ?yearID
+  WHERE {
+    ?TeamSeason MLB:EarnedRunAverage ?ERA .
+    ?TeamSeason MLB:TeamName ?TeamName .
+    ?TeamSeason MLB:Year ?yearID .
+        FILTER (?yearID > 1960).
+  }
+  
+Home Runs Per Team 1980 v.s. 2000 
+
+  SELECT ?TeamName ?HR ?yearID
+  WHERE {
+    ?TeamSeason MLB:HomeRuns ?HR .
+    ?TeamSeason MLB:TeamName ?TeamName .
+    ?TeamSeason MLB:Year ?yearID .
+        FILTER(?yearID = 1980)
+  }
+  
+Total Home Runs Per Season 1900-2015
+
+  SELECT ?TeamSeason ?HR ?yearID
+  WHERE {
+    ?TeamSeason MLB:HomeRuns ?HR .
+    ?TeamSeason MLB:Year ?yearID .
+        FILTER ((?yearID > 1900) && (?yearID < 2016))
+  }
+ 
+Chicago Cubs Home Runs Per Year 1980-2000
+  SELECT ?TeamName ?HR ?yearID
+  WHERE {
+    ?TeamSeason MLB:HomeRuns ?HR .
+    ?TeamSeason MLB:TeamName ?TeamName .
+        FILTER (?TeamName = 'Chicago Cubs')
+    ?TeamSeason MLB:Year ?yearID .
+        FILTER (?yearID > 1989 && ?yearID < 2001) .
+}
